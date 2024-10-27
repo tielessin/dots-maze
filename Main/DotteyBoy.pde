@@ -18,7 +18,7 @@ class DotteyBoy{
     DotteyBoy(){
         brain = new Brain(brainSize);
         size = 10;
-        pos = new PVector(50, height-50);
+        pos = new PVector(100, height-100);
         vel = new PVector(0,0);
         acc = new PVector(0,0);
         c = color(random(255,255), random(255,255), random(255,255));
@@ -63,7 +63,7 @@ class DotteyBoy{
             
             //Apply acceleration and velocity to dot
             vel.add(acc);
-            vel.limit(8);
+            vel.limit(5);
             pos.add(vel);
             }
     //--------------------------------------------------------------------------------------

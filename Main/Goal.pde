@@ -5,7 +5,7 @@ class Goal{
   
     Goal(){
       size = 30;
-      pos = new PVector(50,100);
+      pos = new PVector(50,50);
       c = color(150,0,220);
     }
     
