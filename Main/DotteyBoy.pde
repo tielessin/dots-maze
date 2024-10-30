@@ -18,7 +18,7 @@ class DotteyBoy{
         pos = new PVector(100, height-100);
         vel = new PVector(0,0);
         acc = new PVector(0,0);
-        c = color(random(255,255), random(255,255), random(255,255));
+        c = color(255, 255, 255);
     }
     
         
@@ -27,9 +27,16 @@ class DotteyBoy{
     // show all dots
     void show(){
         fill(c);
-        if(brain.step > brain.lastStep-brain.prevMutations){c = color(200,200,200);}
-        if(isBest){c = color(0,180,0);}
-        ellipse(pos.x,pos.y,size,size);                
+        if (brain.step > brain.lastStep - brain.prevMutations) {
+            // indicate random mode
+            // random mode = randomized instructions that replaced the instructions
+            // which were exectured right before the death on previous run
+            c = color(200,200,200);
+        } 
+        if (isBest){
+            c = color(0,180,0);
+        }
+        ellipse(pos.x, pos.y, size, size);                
     }
     
     //---------------------------------------------------------------------------------------
@@ -40,7 +47,7 @@ class DotteyBoy{
         reachedGoal();
 
         // test if the limit of steps has been reached
-        if (brain.step >= brain.directions.length){
+        if (brain.step >= brain.directions.length) {
             dead = true;
             brain.lastStep = brain.step;
         }
