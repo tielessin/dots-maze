@@ -5,19 +5,18 @@ CemGrid grid1;
 int xSquares;
 int ySquares;
 int brainSize;
-                                                                //int timer; int lastGenTime;
+int timer;
  
 void setup(){
     size(900,600, P2D);
-    frameRate(300);
-    xSquares = 18;    //has to divide the width into a whole number
-    ySquares = 12;    //has to divide the height into a whole number
+    frameRate(30);
+    xSquares = 18;    // has to be divisible by the width
+    ySquares = 12;    // has to be divisible by the height
     brainSize = 5000;
     pop1 = new Population(500);
     goal1 = new Goal();
     obs1 = new Obstacle();
     grid1 = new CemGrid();
-    
 }
  
 void draw(){
@@ -30,9 +29,9 @@ void draw(){
         pop1.move();
         pop1.show();
         goal1.show();
-    } else{
+    } else {
         
-        if(!pop1.goalWasReached){grid1.refreshGrid();}            //only refresh grid before anyone reached goal
+        if (!pop1.goalWasReached){grid1.refreshGrid();}  // only refresh grid until a dot reached goal
         pop1.minMaxSteps();
         pop1.dotsReachedGoal();
         pop1.calculateFitness();
@@ -43,22 +42,18 @@ void draw(){
 
 //------------------------------------------------------------------------------------------
 
-    void showText(){
-      // textSize(30);
-      // textAlign(LEFT,TOP);
-      textSize(15);
-      textAlign(RIGHT,TOP);
-      fill(0);
-      text("Generation: " + pop1.gen, width-20, 20);
-      
-      textSize(15);
-      textAlign(RIGHT,TOP);
-      text("Dots alive: " +pop1.dotsAlive, width-20, 50);
-      text("Dots reached: " +pop1.dotsReachedGoal, width-20, 80);
-      if(pop1.minSteps != brainSize){
-        text("Least Steps: " +pop1.minSteps, width-20, 110);
-        text("Most Steps: " +pop1.maxSteps, width-20, 140);
+void showText() {
+    textSize(15);
+    textAlign(RIGHT,TOP);
+    fill(0);
+    text("Generation: " + pop1.gen, width-20, 20);
+    
+    textSize(15);
+    textAlign(RIGHT,TOP);
+    text("Dots alive: " + pop1.dotsAlive, width-20, 50);
+    text("Dots in goal: " + pop1.dotsReachedGoal, width-20, 80);
+    if (pop1.minSteps != brainSize) {
+        text("Least Steps: " + pop1.minSteps, width-20, 110);
+        text("Most Steps: " + pop1.maxSteps, width-20, 140);
     }
-    }
-
-//------------------------------------------------------------------------------------------
+}
