@@ -1,6 +1,3 @@
-
-
-
 class DotteyBoy{
     Brain brain;
     float size;
@@ -15,21 +12,20 @@ class DotteyBoy{
     float fitness;
     float cemQualFitDebuff;
  
-    DotteyBoy(){
+    DotteyBoy() {
         brain = new Brain(brainSize);
         size = 10;
         pos = new PVector(100, height-100);
         vel = new PVector(0,0);
         acc = new PVector(0,0);
         c = color(random(255,255), random(255,255), random(255,255));
-        }
+    }
     
         
     //---------------------------------------------------------------------------------------
         
-    //show all dots
+    // show all dots
     void show(){
-        
         fill(c);
         if(brain.step > brain.lastStep-brain.prevMutations){c = color(200,200,200);}
         if(isBest){c = color(0,180,0);}
@@ -38,30 +34,32 @@ class DotteyBoy{
     
     //---------------------------------------------------------------------------------------
     
-    // Move dot
+    // move the dots
     void move(){
         
-        reachedGoal();         //reached goal testing
+        reachedGoal();
 
-        if(brain.step >= brain.directions.length){
+        // test if the limit of steps has been reached
+        if (brain.step >= brain.directions.length){
             dead = true;
             brain.lastStep = brain.step;
-        }                                      //test if out of steps
+        }
       
-      if(!dead && !reachedGoal){                                                                  //select direction from array
-                //Change acceleration according to directions array
+      // add the accleration to the dots
+      if (!dead && !reachedGoal) {
+                // set the acceleration according to directions array
                 acc = brain.directions[brain.step];
-                //go to next instruction
+                // go to next step index
                 brain.step++;
             }
-            else{
+            else {
                 dead = true;
                 brain.lastStep = brain.step;
                 vel = new PVector(0,0);
                 acc = new PVector(0,0);
             }
             
-            //Apply acceleration and velocity to dot
+            // apply acceleration and velocity to dot
             vel.add(acc);
             vel.limit(5);
             pos.add(vel);
@@ -71,35 +69,29 @@ class DotteyBoy{
     void calFitness(){
         if (reachedGoal){
             fitness = pow(10,10)/(max(0,0001,pop1.maxSteps-pop1.minSteps))/(max(0.0001,brain.lastStep-pop1.minSteps));
-        }else{
+        } else{
             float distGoal = dist(pos.x, pos.y, goal1.pos.x, goal1.pos.y);
-            fitness = pow(10,4) /*/ pow(distGoal, 2))*//max(0.1,cemQualFitDebuff);
+            fitness = pow(10, 4) /*/ pow(distGoal, 2))*/ / max(0.1, cemQualFitDebuff);
         }
     }
     
     //--------------------------------------------------------------------------------------
     
-  //clone it 
+  // create clones of more successful dots
   DotteyBoy gimmeBaby() {
     DotteyBoy baby = new DotteyBoy();
-    baby.brain = brain.clone();//babies have the same brain as their parents
+    baby.brain = brain.clone(); // babies have the same brain as their parents
     return baby;
   }
     
   //---------------------------------------------------------------------------------------
   
   void reachedGoal(){
-    if(dist(pos.x, pos.y, goal1.pos.x, goal1.pos.y) < goal1.size/2+size/2){
+    if (dist(pos.x, pos.y, goal1.pos.x, goal1.pos.y) < goal1.size/2+size/2){
       reachedGoal = true;
-    }else{
+    } else {
       reachedGoal = false;
     }
   }
     
 }    
-    
-
-
-
-
-    
