@@ -31,10 +31,10 @@ class DotteyBoy{
             // indicate random mode
             // random mode = randomized instructions that replaced the instructions
             // which were exectured right before the death on previous run
-            c = color(200,200,200);
+            c = color(150, 150, 250);
         } 
         if (isBest){
-            c = color(0,180,0);
+            c = color(0, 180, 0);
         }
         ellipse(pos.x, pos.y, size, size);                
     }
